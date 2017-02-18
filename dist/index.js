@@ -10,6 +10,8 @@ var _lodash = require('lodash.merge');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _immutable = require('immutable');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var deviceStorage = {
@@ -21,12 +23,12 @@ var deviceStorage = {
 	get: function get(key) {
 		if (!Array.isArray(key)) {
 			return _reactNative.AsyncStorage.getItem(key).then(function (value) {
-				return JSON.parse(value);
+				return (0, _immutable.fromJS)(JSON.parse(value));
 			});
 		} else {
 			return _reactNative.AsyncStorage.multiGet(key).then(function (values) {
 				return values.map(function (value) {
-					return JSON.parse(value[1]);
+					return (0, _immutable.fromJS)(JSON.parse(value[1]));
 				});
 			});
 		}
