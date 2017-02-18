@@ -5,6 +5,7 @@
  */
 import { AsyncStorage } from 'react-native';
 import merge from 'lodash.merge';
+import { fromJS } from 'immutable';
 
 const deviceStorage = {
 	/**
@@ -15,12 +16,12 @@ const deviceStorage = {
 	get(key) {
 		if(!Array.isArray(key)) {
 			return AsyncStorage.getItem(key).then(value => {
-				return JSON.parse(value);
+				return fromJS(JSON.parse(value));
 			});
 		} else {
 			return AsyncStorage.multiGet(key).then(values => {
 				return values.map(value => {
-					return JSON.parse(value[1]);
+					return fromJS(JSON.parse(value[1]));
 				});
 			});
 		}
