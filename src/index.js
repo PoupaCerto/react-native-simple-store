@@ -15,15 +15,15 @@ const deviceStorage = {
 	 */
 	get(key) {
 		if(!Array.isArray(key)) {
-			return AsyncStorage.getItem(key).then(value => {
-				return fromJS(JSON.parse(value));
-			});
+			return fromJS(AsyncStorage.getItem(key).then(value => {
+				return JSON.parse(value);
+			}));
 		} else {
-			return AsyncStorage.multiGet(key).then(values => {
+			return fromJS(AsyncStorage.multiGet(key).then(values => {
 				return values.map(value => {
-					return fromJS(JSON.parse(value[1]));
+					return JSON.parse(value[1]);
 				});
-			});
+			}));
 		}
 	},
 

@@ -22,15 +22,15 @@ var deviceStorage = {
   */
 	get: function get(key) {
 		if (!Array.isArray(key)) {
-			return _reactNative.AsyncStorage.getItem(key).then(function (value) {
-				return (0, _immutable.fromJS)(JSON.parse(value));
-			});
+			return (0, _immutable.fromJS)(_reactNative.AsyncStorage.getItem(key).then(function (value) {
+				return JSON.parse(value);
+			}));
 		} else {
-			return _reactNative.AsyncStorage.multiGet(key).then(function (values) {
+			return (0, _immutable.fromJS)(_reactNative.AsyncStorage.multiGet(key).then(function (values) {
 				return values.map(function (value) {
-					return (0, _immutable.fromJS)(JSON.parse(value[1]));
+					return JSON.parse(value[1]);
 				});
-			});
+			}));
 		}
 	},
 
